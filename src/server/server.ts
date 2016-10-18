@@ -10,6 +10,7 @@ import * as cookieParser from 'cookie-parser';
 
 import { initializeDatabase } from './database';
 import { Router }             from './routes/router';
+import { IOListen }           from './socket';
 
 let app = express();
 
@@ -54,6 +55,17 @@ app.use(express.static(publicPath));
  */
  app.use('/', Router);
 
+
+
+/**
+ * Start socket server
+ */
+IOListen(app);
+
+
+/**
+ * Start HTTP Server
+ */
 let server = app.listen(process.env.PORT || 3000, () => {
   let port = server.address().port;
   winston.info(`Listening at http://localhost:${port}`);

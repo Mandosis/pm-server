@@ -1,7 +1,9 @@
 import * as express from 'express';
 
+import { ApiRoutes } from './api';
+
 let router: any = express.Router();
 
-// Put API Routes here
+router.use('/v1', ApiRoutes);
 
 export { router as Router };
