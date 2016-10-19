@@ -2,16 +2,18 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import * as express      from 'express';
+import * as http         from 'http';
+import * as socket       from 'socket.io';
 import * as winston      from 'winston';
 import * as helmet       from 'helmet';
 import * as path         from 'path';
 import * as bodyParser   from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 
-import { initializeDatabase } from './database';
-import { Router }             from './routes/router';
-import { IOListen }           from './socket';
-import { StartSocketAPI }     from './socket-api';
+import { initializeDatabase }   from './database';
+import { Router }               from './routes/router';
+import { IOListen, IOStartAPI } from './socket';
+import { StartSocketAPI }       from './socket-api';
 let app = express();
 
 /**
@@ -48,26 +50,30 @@ app.use(helmet());
 /**
  * Set directories to serve static assets from
  */
-// Add public directories
+app.use(express.static(path.join(__dirname, '../../../client/dist')));
+winston.debug(path.join(__dirname, '../../../client/dist'));
 
 /**
  * Set routes
  */
 app.use('/', Router);
 
-
+/**
+ * Create HTTP Server
+ */
+let httpServer = http.createServer(app);
 
 /**
- * Start socket server
+ * Create and start Socket.io server
  */
-IOListen(app);
-StartSocketAPI();
+IOListen(httpServer);
+IOStartAPI();
 
 
 /**
  * Start HTTP Server
  */
-let server = app.listen(process.env.PORT || 3000, () => {
-  let port = server.address().port;
+let listenServer = httpServer.listen(process.env.PORT || 3000, () => {
+  let port = listenServer.address().port;
   winston.info(`Listening at http://localhost:${port}`);
 });

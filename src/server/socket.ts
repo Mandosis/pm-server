@@ -1,11 +1,27 @@
+import * as winston from 'winston';
 import * as socket from 'socket.io';
-import * as http   from 'http';
+import * as http from 'http';
+
+const ioJwt = require('socketio-jwt');
+
 
 let io: SocketIO.Server;
 
-export function IOListen(app: any) {
-    let server = http.createServer(app);
+export function IOListen(server: any) {
     io = socket(server);
 }
 
-export { io as IO };
+
+export function IOStartAPI () {
+    io.sockets
+        .on('connection', ioJwt.authorize({
+            secret: process.env.SECRET,
+            timeout: 15000
+        }))
+        .on('authenticated', (socket: any) => {
+            // Add Events for authenticated users
+            winston.info(`${socket.decoded_token.name} connected`);
+        })
+}
+
+

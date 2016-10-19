@@ -4,9 +4,9 @@ import * as winston from 'winston';
 
 import { User } from '../../models';
 
-let router: any = express.Router();
+let router: express.Router = express.Router();
 
-router.post('/login', (req: any, res: any) => {
+router.post('/login', (req: express.Request, res: express.Response) => {
     User.findOne({ email: req.body.email.toLowerCase() }, (err: any, user: any) => {
         if (err) {
             res.status(500).json({
@@ -21,16 +21,17 @@ router.post('/login', (req: any, res: any) => {
 
     function authenticate(user: any) {
         if (!user) {
-            res.status(401).json({
+            res.status(200).json({
                 success: false,
                 message: 'Username or password incorrect'
             });
         } else {
             user.comparePassword(req.body.password, (err: any, isMatch: boolean) => {
                 if (isMatch) {
-                    let profile = {
+                    let profile: any = {
+                        id: user.id,
                         username: user.username,
-                        email: user.username,
+                        email: user.email,
                         firstName: user.firstName,
                         lastName: user.lastName,
                         admin: user.admin,
@@ -41,12 +42,12 @@ router.post('/login', (req: any, res: any) => {
                         expiresIn: "1h"
                     });
 
+                    profile.token = token;
+
                     res.json({
                         success: true,
                         message: 'User authenticated.',
-                        data: {
-                            token: token
-                        }
+                        data: profile
                     });
                 }
             })
