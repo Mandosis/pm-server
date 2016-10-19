@@ -11,7 +11,7 @@ import * as cookieParser from 'cookie-parser';
 import { initializeDatabase } from './database';
 import { Router }             from './routes/router';
 import { IOListen }           from './socket';
-
+import { StartSocketAPI }     from './socket-api';
 let app = express();
 
 /**
@@ -41,19 +41,19 @@ initializeDatabase();
  * Configure Middleware
  */
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(helmet());
 
 /**
  * Set directories to serve static assets from
  */
-let publicPath: string = path.join(__dirname, '../public');
-app.use(express.static(publicPath));
+// Add public directories
 
 /**
  * Set routes
  */
- app.use('/', Router);
+app.use('/', Router);
 
 
 
@@ -61,6 +61,7 @@ app.use(express.static(publicPath));
  * Start socket server
  */
 IOListen(app);
+StartSocketAPI();
 
 
 /**
