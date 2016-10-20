@@ -9,6 +9,7 @@ let io: SocketIO.Server;
 
 export function IOListen(server: any) {
     io = socket(server);
+    winston.info('Socket.io server started')
 }
 
 
@@ -20,7 +21,7 @@ export function IOStartAPI () {
         }))
         .on('authenticated', (socket: any) => {
             // Add Events for authenticated users
-            winston.info(`${socket.decoded_token.name} connected`);
+            winston.info(`${socket.decoded_token.email} connected`);
         })
 }
 
