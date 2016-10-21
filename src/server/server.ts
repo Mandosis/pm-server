@@ -13,7 +13,7 @@ import * as cookieParser from 'cookie-parser';
 import { initializeDatabase }   from './database';
 import { Router }               from './routes/router';
 import { IOListen, IOStartAPI } from './socket';
-import { StartSocketAPI }       from './socket-api';
+
 let app = express();
 
 /**

@@ -87,30 +87,57 @@ router.post('/auth/refresh', (req: express.Request, res: express.Response) => {
   });
 })
 
-// router.post('/users', (req: any, res: any) => {
-//     let profile = {
-//         username: req.body.username,
-//         password: req.body.password,
-//         email: req.body.email,
-//         first_name: req.body.first_name,
-//         last_name: req.body.last_name,
-//         username_lower: req.body.username
-//     }
 
-//     User.create(profile, (err: any, user: any) => {
-//         if (err) {
-//             res.status(500).json({
-//                 success: false,
-//                 message: 'Internal error.'
-//             });
-//         }
+/**
+ * Proctects all routes below
+ */
+router.use((req: any, res: express.Response, next: express.NextFunction) => {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-//         res.status(201).json({
-//             success: true,
-//             message: 'Account created.'
-//         });
-//     });
+  if (token) {
+    jwt.verify(token, process.env.SECRET, (err: any, decoded: any) => {
+      if (err) {
+        return res.status(401).json({
+          success: false,
+          message: 'Failed to authenticate token'
+        });
+      } else {
+        req.decoded = decoded;
+        next();
+      }
+    });
+  } else {
+    return res.status(403).json({
+      success: false,
+      message: 'No token provided.'
+    });
+  }
+});
 
-// });
+router.post('/users', (req: any, res: any) => {
+    let profile = {
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        username_lower: req.body.username
+    }
+
+    User.create(profile, (err: any, user: any) => {
+        if (err) {
+            res.status(500).json({
+                success: false,
+                message: 'Internal error.'
+            });
+        }
+
+        res.status(201).json({
+            success: true,
+            message: 'Account created.'
+        });
+    });
+
+});
 
 export { router as ApiRoutes };
