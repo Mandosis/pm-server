@@ -1,5 +1,7 @@
 import * as mongoose from 'mongoose';
 
+import { IssueTag } from './issue-tag';
+
 let Schema = mongoose.Schema;
 
 let issueTrackerSchema = new Schema({
@@ -7,6 +9,7 @@ let issueTrackerSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Project'
   },
+  tags: [IssueTag],
   issues: [{
     type: Schema.Types.ObjectId,
     ref: 'Issue'

@@ -17,6 +17,10 @@ let issueSchema = new Schema({
     type: String,
     required: true
   },
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Issue-Tracker.tags'
+  }],
   author: {
     type: Schema.Types.ObjectId,
     ref: 'User',
