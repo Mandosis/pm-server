@@ -1,16 +1,16 @@
 import * as mongoose from 'mongoose';
 
-import { IssueSchema } from './issue.schema';
-
 let Schema = mongoose.Schema;
 
 let issueTrackerSchema = new Schema({
-  project_id: {
+  project: {
     type: Schema.Types.ObjectId,
-    required: true,
-    unique: true
+    ref: 'Project'
   },
-  issues: [IssueSchema]
+  issues: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Issue'
+  }]
 });
 
 let IssueTracker = mongoose.model('IssueTracker', issueTrackerSchema);

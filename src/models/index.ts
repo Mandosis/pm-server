@@ -1,11 +1,13 @@
 import { User }    from './user';
 import { Project } from './project';
-import { Board }   from './board.model';
-import { IssueTracker } from './issue-tracker.model';
+import { Board }   from './board';
+import { IssueTracker } from './issue-tracker';
+// import { Issue } from './issue';
 
 export {
   User,
   Project,
   Board,
-  IssueTracker
+  IssueTracker,
+  // Issue
 };

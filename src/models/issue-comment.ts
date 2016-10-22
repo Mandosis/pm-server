@@ -2,9 +2,10 @@ import * as mongoose from 'mongoose';
 
 let Schema = mongoose.Schema;
 
-let commentSchema = new Schema({
-  created_by: {
+let issueCommentSchema = new Schema({
+  author: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   body: {
@@ -22,4 +23,4 @@ let commentSchema = new Schema({
   }
 });
 
-export { commentSchema as CommentSchema };
+export { issueCommentSchema as IssueComment };

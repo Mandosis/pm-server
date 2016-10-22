@@ -1,9 +1,14 @@
 import * as mongoose from 'mongoose';
-import { CommentSchema } from './comment.schema';
+import { IssueComment } from './issue-comment';
 
 let Schema = mongoose.Schema;
 
 let issueSchema = new Schema({
+  owener: {
+    type: Schema.Types.ObjectId,
+    ref: 'Issue-Tracker',
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -12,13 +17,14 @@ let issueSchema = new Schema({
     type: String,
     required: true
   },
-  created_by: {
+  author: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
-  assigned_to: [{
+  assigned: [{
     type: Schema.Types.ObjectId,
-    required: true
+    ref: 'User'
   }],
   created_at: {
     type: Date,
@@ -29,8 +35,10 @@ let issueSchema = new Schema({
     type: Date,
     required: false
   },
-  comments: CommentSchema
+  comments: [IssueComment]
 });
 
-export { issueSchema as IssueSchema };
+let Issue = mongoose.model('Issue', issueSchema);
+
+export { Issue };
 

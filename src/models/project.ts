@@ -24,20 +24,25 @@ let projectSchema = new Schema({
   },
   admins: [{
     type: Schema.Types.ObjectId,
+    ref: 'Users'
   }],
   members: [{
     type: Schema.Types.ObjectId,
+    ref: 'Users'
   }],
-  // wiki_id: {
+  // wiki: {
   //   type: Schema.Types.ObjectId,
+  //   ref: 'Wiki',
   //   required: true,
   // },
-  // board_id: {
+  // board: {
   //   type: Schema.Types.ObjectId,
+  //   ref: 'Board',
   //   required: true,
   // },
-  issue_tracker_id: {
+  issue_tracker: {
     type: Schema.Types.ObjectId,
+    ref: 'Issue-Tracker',
     required: true,
   },
   created_at: {
