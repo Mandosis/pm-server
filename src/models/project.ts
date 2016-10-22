@@ -45,7 +45,7 @@ let projectSchema = new Schema({
     ref: 'Issue-Tracker',
     required: true,
   },
-  created_at: {
+  created: {
     type: Date,
     required: true,
     default: Date.now
