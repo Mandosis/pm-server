@@ -114,7 +114,7 @@ router.use((req: any, res: express.Response, next: express.NextFunction) => {
   }
 });
 
-router.post('/users', (req: any, res: any) => {
+router.post('/users', (req: express.Request, res: express.Response, next: express.NextFunction) => {
     let profile = {
         username: req.body.username,
         password: req.body.password,
@@ -130,6 +130,8 @@ router.post('/users', (req: any, res: any) => {
                 success: false,
                 message: 'Internal error.'
             });
+
+            return next();
         }
 
         res.status(201).json({
