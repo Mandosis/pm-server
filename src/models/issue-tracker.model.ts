@@ -7,9 +7,10 @@ let Schema = mongoose.Schema;
 let issueTrackerSchema = new Schema({
   project_id: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    unique: true
   },
-  issues: IssueSchema
+  issues: [IssueSchema]
 });
 
 let IssueTracker = mongoose.model('IssueTracker', issueTrackerSchema);

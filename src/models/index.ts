@@ -1,5 +1,5 @@
 import { User }    from './user';
-import { Project } from './project.model';
+import { Project } from './project';
 import { Board }   from './board.model';
 import { IssueTracker } from './issue-tracker.model';
 

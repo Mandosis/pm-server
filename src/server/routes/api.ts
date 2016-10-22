@@ -4,6 +4,8 @@ import * as winston from 'winston';
 
 import { User } from '../../models';
 
+import { NewProject } from './api/project';
+
 let router: express.Router = express.Router();
 
 router.post('/auth/login', (req: express.Request, res: express.Response) => {
@@ -141,5 +143,7 @@ router.post('/users', (req: express.Request, res: express.Response, next: expres
     });
 
 });
+
+router.post('/projects', NewProject);
 
 export { router as ApiRoutes };
