@@ -16,6 +16,6 @@ let issueTrackerSchema = new Schema({
   }]
 });
 
-let IssueTracker = mongoose.model('IssueTracker', issueTrackerSchema);
+let IssueTracker = mongoose.model('Issue_Tracker', issueTrackerSchema);
 
 export { IssueTracker }; 

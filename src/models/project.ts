@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as winston from 'winston';
 const speakingurl = require('speakingurl');
 
 let Schema = mongoose.Schema;
@@ -10,13 +11,7 @@ let projectSchema = new Schema({
   },
   title: {
     type: String,
-    required: true,
-    unique: true
-  },
-  title_lower: {
-    type: String,
-    unique: true,
-    lowercase: true
+    required: true
   },
   description: {
     type: String,
@@ -42,8 +37,7 @@ let projectSchema = new Schema({
   // },
   issue_tracker: {
     type: Schema.Types.ObjectId,
-    ref: 'Issue-Tracker',
-    required: true,
+    ref: 'Issue_Tracker'
   },
   created: {
     type: Date,
@@ -60,7 +54,6 @@ projectSchema.pre('save', function(next) {
   }
 
   project.url = speakingurl(project.title);
-  project.title_lower = project.title.toLowerCase();
   return next();
 });
 

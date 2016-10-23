@@ -6,7 +6,7 @@ let Schema = mongoose.Schema;
 let issueSchema = new Schema({
   owener: {
     type: Schema.Types.ObjectId,
-    ref: 'Issue-Tracker',
+    ref: 'Issue_Tracker',
     required: true
   },
   title: {
@@ -19,7 +19,7 @@ let issueSchema = new Schema({
   },
   tags: [{
     type: Schema.Types.ObjectId,
-    ref: 'Issue-Tracker.tags'
+    ref: 'Issue_Tracker.tags'
   }],
   author: {
     type: Schema.Types.ObjectId,

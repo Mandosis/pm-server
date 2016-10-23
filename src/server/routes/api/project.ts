@@ -5,33 +5,43 @@ import { Project, IssueTracker } from '../../../models';
 
 export function NewProject(req: express.Request, res: express.Response) {
   let isValid = (
-    req.body.title && 
-    req.body.description
+    req.body.title !== undefined && 
+    req.body.description !== undefined
   );
-  let issueTrackerId = new IssueTracker({})._id;
+
 
   let newProject = new Project({
     title: req.body.title,
     description: req.body.description,
-    admins: req.body.admins,
+    admins: req.body.admins || [],
     members: [],
-    issue_tracker_id: issueTrackerId
   });
 
+
   let newIssueTracker = new IssueTracker({
-    _id: issueTrackerId,
-    project_id: newProject._id,
     issues: []
   });
 
-  let saveAll = Promise.join(saveIssueTracker(), saveProject(), () => {});
+  let saveAll = Promise.join(saveIssueTracker(), saveProject(), (issueTracker, project) => {
+    return { issueTracker: issueTracker, project: project };
+  });
   
   if (isValid) {
     saveAll
-      .then(() => {
+      .then((data) => {
+
+        data.project.issue_tracker = data.issueTracker._id;
+        data.issueTracker.project = data.project._id;
+
+        data.project.save(() => {});
+        data.issueTracker.save(() => {});
+
         res.status(201).json({
           success: true,
-          message: 'Project saved'
+          message: 'Project saved',
+          data: {
+            url: data.project.url
+          }
         });
       })
       .catch((err) => {
@@ -50,13 +60,12 @@ export function NewProject(req: express.Request, res: express.Response) {
 
 
   function saveIssueTracker(): Promise<any> {
-    winston.info('saveIssueTracker hit');
     return new Promise((resolve, reject) => {
       newIssueTracker.save((err, issueTracker) => {
         if (err) {
           reject(err);
         } else {
-          resolve();
+          resolve(issueTracker);
         }
       })
     })
@@ -68,7 +77,7 @@ export function NewProject(req: express.Request, res: express.Response) {
         if (err) {
           reject(err);
         } else {
-          resolve();
+          resolve(project);
         }
       })
     })
