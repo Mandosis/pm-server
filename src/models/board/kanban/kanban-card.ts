@@ -7,7 +7,7 @@ let Schema = mongoose.Schema;
 let kanbanCardSchema = new Schema({
   lane: {
     type: Schema.Types.ObjectId,
-    ref: 'Kanban-Board.lanes',
+    ref: 'Kanban_Board.lanes',
     required: true,
     unique: false
   },

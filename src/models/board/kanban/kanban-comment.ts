@@ -9,7 +9,7 @@ let kanbanCommentSchema = new Schema({
     required: true
   },
   body: {
-    types: String,
+    type: String,
     required: true
   },
   created: {
