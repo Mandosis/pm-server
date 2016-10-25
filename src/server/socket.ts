@@ -9,7 +9,6 @@ let io: SocketIO.Server;
 
 export function IOListen(server: any) {
     io = socket(server);
-    winston.info('Socket.io server started')
 }
 
 
