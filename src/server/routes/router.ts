@@ -15,8 +15,4 @@ router.get('/*',proxy(('localhost:4200'), {
   }
 }))
 
-// router.get('/*', (req: express.Request, res: express.Response) => {
-//   res.sendFile(path.join(__dirname, '../../../../client/dist/index.html'));
-// });
-
 export { router as Router };
