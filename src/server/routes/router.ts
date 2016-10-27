@@ -13,6 +13,6 @@ router.get('/*',proxy(('localhost:4200'), {
   forwardPath: (req: express.Request, res: express.Response) => {
     return require('url').parse(req.url).path;
   }
-}))
+}));
 
 export { router as Router };
