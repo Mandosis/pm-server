@@ -1,6 +1,6 @@
 # Project Manager Server
 
-Back-end api for https://github.com/Mandois/pm-client
+Back-end api for https://github.com/Mandsois/pm-client
 
 ## Instructions for Development
 
