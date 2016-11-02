@@ -3,7 +3,6 @@ dotenv.config();
 
 import * as express      from 'express';
 import * as http         from 'http';
-import * as socket       from 'socket.io';
 import * as winston      from 'winston';
 import * as helmet       from 'helmet';
 import * as path         from 'path';
@@ -31,7 +30,7 @@ winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, {
   level: process.env.LOG_LEVEL,
   colorize: true
-})
+});
 
 
 /**

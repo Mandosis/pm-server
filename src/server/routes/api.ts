@@ -5,6 +5,7 @@ import * as winston from 'winston';
 import { User } from '../../models';
 
 import { NewProject } from './api/project';
+import { GetProjectByUrl } from './api/project/get-project';
 
 let router: express.Router = express.Router();
 
@@ -144,6 +145,10 @@ router.post('/users', (req: express.Request, res: express.Response, next: expres
 
 });
 
-router.post('/projects', NewProject);
+router.route('/projects')
+  .post(NewProject)
+
+router.route('/projects/url/:url')
+  .get(GetProjectByUrl)
 
 export { router as ApiRoutes };

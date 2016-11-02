@@ -1,6 +1,5 @@
 import * as winston from 'winston';
 import * as socket from 'socket.io';
-import * as http from 'http';
 
 const ioJwt = require('socketio-jwt');
 
