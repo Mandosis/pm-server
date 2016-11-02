@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as winston from 'winston';
 import { Project } from '../../../../models';
 
-export function GetProjectByUrl(req: express.Request, res: express.Response) {
+export function ProjectGetByUrl(req: express.Request, res: express.Response) {
   let url: string = req.params.url;
 
   if (!url) {
