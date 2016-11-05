@@ -25,6 +25,7 @@ export function AuthRefreshToken(req: express.Request, res: express.Response) {
       return;
     }
 
+    winston.debug(decoded);
     delete decoded.exp;
     let accessToken = jwt.sign(decoded, process.env.SECRET, {
       expiresIn: '1h'

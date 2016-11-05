@@ -8,7 +8,7 @@ export function ProjectGetByUrl(req: express.Request, res: express.Response) {
   if (!url) {
     res.status(400).json({
       success: false,
-      message: 'Project url missing from body'
+      message: 'Project url missing from body.'
     });
 
     return;

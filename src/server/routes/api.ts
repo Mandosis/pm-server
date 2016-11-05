@@ -16,7 +16,8 @@ import {
 } from '../api/rest/projects';
 
 import {
-  UserCreate
+  UserCreate,
+  GetUserById
 } from '../api/rest/users';
 
 let router: express.Router = express.Router();
@@ -39,6 +40,9 @@ router.use(AuthRouteProtection);
 
 router.route('/users')
   .post(UserCreate)
+
+router.route('/users/id/:id')
+  .get(GetUserById)
 
 router.route('/projects')
   .post(ProjectCreate)

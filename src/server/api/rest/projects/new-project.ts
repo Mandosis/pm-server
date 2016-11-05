@@ -9,6 +9,17 @@ export function ProjectCreate(req: express.Request | any, res: express.Response)
   let description = req.body.title;
   let user = req.decoded.id;
 
+  if (!title || !description) {
+    res.status(400).json({
+      success: false,
+      messsage: 'Missing required information.'
+    });
+
+    return;
+  }
+
+
+
   let newProject = new Project({
     title: title,
     description: description,
@@ -20,14 +31,6 @@ export function ProjectCreate(req: express.Request | any, res: express.Response)
     issues: []
   });
 
-  if (!title || !description) {
-    res.status(400).json({
-      success: false,
-      messsage: 'Missing required information.'
-    });
-
-    return;
-  }
 
   const saveProject = () => {
     return new Promise((resolve, reject) => {

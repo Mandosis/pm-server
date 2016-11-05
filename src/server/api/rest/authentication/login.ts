@@ -48,7 +48,7 @@ export function AuthLogin(req: express.Request, res: express.Response) {
       let userData = user.toJSON();
       delete userData.password;
 
-      let tokenData: any = userData;
+      let tokenData: any = { id: userData._id };
 
       let accessToken = jwt.sign(tokenData, process.env.SECRET, {
         expiresIn: '1h'
