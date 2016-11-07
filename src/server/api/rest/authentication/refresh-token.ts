@@ -17,7 +17,7 @@ export function AuthRefreshToken(req: express.Request, res: express.Response) {
 
   jwt.verify(token, process.env.SECRET, (err: any, decoded: any) => {
     if (err || !decoded) {
-      res.status(406).json({
+      res.status(200).json({
         success: false,
         message: 'Access token not valid.'
       });
