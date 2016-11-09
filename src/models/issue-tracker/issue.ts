@@ -4,7 +4,7 @@ import { IssueComment } from './issue-comment';
 let Schema = mongoose.Schema;
 
 let issueSchema = new Schema({
-  owener: {
+  issue_tracker: {
     type: Schema.Types.ObjectId,
     ref: 'Issue_Tracker',
     required: true
@@ -26,16 +26,16 @@ let issueSchema = new Schema({
     ref: 'User',
     required: true
   },
-  assigned: [{
+  assignees: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
-  created_at: {
+  created: {
     type: Date,
     required: true,
     default: Date.now
   },
-  edited_at: {
+  edited: {
     type: Date,
     required: false
   },

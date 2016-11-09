@@ -21,6 +21,8 @@ import {
 } from '../api/rest/users';
 
 import { ITGetById } from '../api/rest/issue-tracker/get-by-id';
+import { ITNewIssue } from '../api/rest/issue-tracker/new-issue';
+import { ITGetIssue } from '../api/rest/issue-tracker/get-issue';
 
 let router: express.Router = express.Router();
 
@@ -54,5 +56,9 @@ router.route('/projects/url/:url')
 
 router.route('/projects/issue-tracker')
   .post(ITGetById)
+
+router.route('/issue-trackers/issues/:id?')
+  .get(ITGetIssue)
+  .post(ITNewIssue)
 
 export { router as ApiRoutes };

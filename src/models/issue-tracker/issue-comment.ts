@@ -12,12 +12,12 @@ let issueCommentSchema = new Schema({
     type: String,
     required: true
   },
-  created_at: {
+  created: {
     type: Date,
     required: true,
     default: Date.now
   },
-  edited_at: {
+  edited: {
     type: Date,
     required: false
   }
