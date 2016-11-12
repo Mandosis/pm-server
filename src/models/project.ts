@@ -57,6 +57,16 @@ projectSchema.pre('save', function(next) {
   return next();
 });
 
+projectSchema.methods.isMember = function(candidateId: string) {
+  for (let memberId of this.members) {
+    if (memberId === candidateId) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 let Project = mongoose.model('Project', projectSchema);
 
 export { Project };
