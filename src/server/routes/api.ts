@@ -15,6 +15,11 @@ import {
   ProjectCreate
 } from '../api/rest/projects';
 
+import { 
+  ProjectRouteAuth,
+  ProjectClientAuth
+} from '../api/rest/authentication/project-auth';
+
 import {
   UserCreate,
   GetUserById
@@ -37,6 +42,10 @@ router.route('/auth/login')
 router.route('/auth/refresh')
   .post(AuthRefreshToken)
 
+router.route('/auth/project')
+  .all(ProjectRouteAuth)
+  .post(ProjectClientAuth)
+
 /**
  * Proctects all routes below
  */
@@ -49,15 +58,19 @@ router.route('/users/id/:id')
   .get(GetUserById)
 
 router.route('/projects')
+  .all(ProjectRouteAuth)
   .post(ProjectCreate)
 
 router.route('/projects/url/:url')
+  .all(ProjectRouteAuth)
   .get(ProjectGetByUrl)
 
 router.route('/projects/issue-tracker')
+  .all(ProjectRouteAuth)
   .post(ITGetById)
 
 router.route('/issue-trackers/issues/:id?')
+  .all(ProjectRouteAuth)
   .get(ITGetIssue)
   .post(ITNewIssue)
 

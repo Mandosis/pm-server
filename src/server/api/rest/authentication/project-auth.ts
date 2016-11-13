@@ -4,7 +4,7 @@ import * as Promise from 'bluebird';
 
 import { Project } from '../../../../models/project';
 
-export function ProjectClientAuth(req: express.Request | any, res: express.Response) {
+export function ProjectRouteAuth(req: express.Request | any, res: express.Response, next: express.NextFunction) {
   let id = req.decoded.id;
   let url = req.body.url;
 
@@ -17,10 +17,8 @@ export function ProjectClientAuth(req: express.Request | any, res: express.Respo
         });
       }
 
-      res.status(200).json({
-        success: true,
-        message: 'User is a member.'
-      });
+      req.project = project;
+      return next();
     })
     .catch((err) => {
       res.status(500).json({
@@ -30,20 +28,12 @@ export function ProjectClientAuth(req: express.Request | any, res: express.Respo
     });
 }
 
-export function ProjectAPIAuth(
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) {
-  // Get user id
-  // Get project by url
-    // Check if the user is a member
-      // If the user is a member
-        // Continue (Maybe add project to 'req.project'?)
-      // Else
-        // Send an error to the client
+export function ProjectClientAuth(req: express.Request, res: express.Response) {
+  res.status(200).json({
+    success: true,
+    message: 'User is a member.'
+  });
 }
-
 
 function getProjectByUrl(url: string) {
   return new Promise((resolve, reject) => {
