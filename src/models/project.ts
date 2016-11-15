@@ -58,7 +58,12 @@ projectSchema.pre('save', function(next) {
 });
 
 projectSchema.methods.isMember = function(candidateId: string) {
-  for (let memberId of this.members) {
+  let project: mongoose.Document = this;
+
+  let json = JSON.stringify(project);
+  let members = JSON.parse(json).members;
+  
+  for (let memberId of members) {
     if (memberId === candidateId) {
       return true;
     }

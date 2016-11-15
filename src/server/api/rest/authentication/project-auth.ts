@@ -6,7 +6,9 @@ import { Project } from '../../../../models/project';
 
 export function ProjectRouteAuth(req: express.Request | any, res: express.Response, next: express.NextFunction) {
   let id = req.decoded.id;
-  let url = req.body.url;
+  let url = req.body.url || req.params.url;
+
+  winston.debug('project url', url);
 
   getProjectByUrl(url)
     .then((project: any) => {

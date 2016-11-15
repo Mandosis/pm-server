@@ -42,14 +42,15 @@ router.route('/auth/login')
 router.route('/auth/refresh')
   .post(AuthRefreshToken)
 
-router.route('/auth/project')
-  .all(ProjectRouteAuth)
-  .post(ProjectClientAuth)
 
 /**
  * Proctects all routes below
  */
 router.use(AuthRouteProtection);
+
+router.route('/auth/project')
+  .all(ProjectRouteAuth)
+  .post(ProjectClientAuth)
 
 router.route('/users')
   .post(UserCreate)
