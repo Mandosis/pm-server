@@ -7,7 +7,7 @@ Back-end api for https://github.com/Mandosis/pm-client
 Requirements:
 * Node.js v0.6.9+
 * MongoDB v3.2
-* TypeScript v2.0.0+
+* TypeScript v2.0+
 
 Run the following commands:
 
