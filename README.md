@@ -13,4 +13,4 @@ Run the following commands:
 
 1. `npm i`
 2. `tsc` or `tsc -w`
-3. `nodemon dist/server/server.js`
+3. `npm run server`
